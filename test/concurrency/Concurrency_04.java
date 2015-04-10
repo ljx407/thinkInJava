@@ -263,3 +263,79 @@ class Block3 implements Runnable {
 	}
 	
 }
+
+class Car {
+	private boolean flag = false ;
+	public synchronized void waxOn() {
+		while(flag) {
+			try {
+				wait();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		notifyWaxOn();
+	}
+	public synchronized void waxOff() {
+		while(!flag) {
+			try {
+				wait();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		notifyWaxOff();
+	}
+	
+	public synchronized void notifyWaxOn() {
+		println("waxon");
+		try {
+			TimeUnit.MILLISECONDS.sleep(100);
+		} catch (InterruptedException e) {
+			println("waxon interrupted");
+		}
+		flag = true ;
+		notifyAll();
+	}
+	
+	public synchronized void notifyWaxOff() {
+		println("waxoff");
+		try {
+			TimeUnit.MILLISECONDS.sleep(100);
+		} catch (InterruptedException e) {
+			println("waxoff interrupted");
+		}
+		flag = false ;
+		notifyAll();
+	}
+}
+
+class WaxOn implements Runnable {
+	
+	private Car car ;
+
+	public WaxOn(Car car) {
+		this.car = car;
+	}
+
+	@Override
+	public void run() {
+		car.waxOn();
+	}
+	
+}
+
+class WaxOff implements Runnable {
+
+	private Car car ;
+
+	public WaxOff(Car car) {
+		this.car = car;
+	}
+
+	@Override
+	public void run() {
+		car.waxOff();
+	}
+	
+}
