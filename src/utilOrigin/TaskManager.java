@@ -6,6 +6,7 @@ import java.util.concurrent.*;
 import java.util.*;
 
 public class TaskManager<R, C extends Callable<R>> extends ArrayList<TaskItem<R, C>> {
+	private static final long serialVersionUID = 1L;
 	private ExecutorService exec = Executors.newSingleThreadExecutor();
 
 	public void add(C task) {

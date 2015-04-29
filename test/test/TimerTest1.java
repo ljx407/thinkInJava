@@ -19,6 +19,7 @@ public class TimerTest1 {
 		}
 	}
 
+	@SuppressWarnings("deprecation")
 	public static void main(String[] args) {
 		Timer timer = new Timer();
 		timer.schedule(new MyTimerTask2(), 2000);
