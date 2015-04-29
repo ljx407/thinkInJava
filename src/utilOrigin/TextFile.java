@@ -9,6 +9,8 @@ import java.util.*;
 import utilOrigin.TextFile;
 
 public class TextFile extends ArrayList<String> {
+	private static final long serialVersionUID = 1L;
+
 	// Read a file as a single string:
 	public static String read(String fileName) {
 		StringBuilder sb = new StringBuilder();
